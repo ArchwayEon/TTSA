@@ -1,0 +1,27 @@
+As a ticket vendor, I want to view the seating chart so that I can effectively sell tickets.
+
+TTSA = Theater Ticket Sales App
+
+Pre: 
+Flow:
+1. I select the view seating chart command.
+2. TTSA reads the seating chart from file 'SeatAvailability.dat'
+3. Guard 1 [SeatAvailability.dat exists]
+   3.1 Exception flow
+       3.1.1 TTSA responds with an error message
+       3.1.2 Exit
+4. Guard 2 [SeatAvailability.dat is properly formatted]
+   4.1. Exception flow
+        4.1.1. TTSA responds with an error message
+        4.1.2 Exit
+5. TTSA responds with the seating chart
+
+Scenario: SeatAvailability.dat is missing.
+1. I select the view seating chart command.
+2. TTSA reads the seating chart but SeatAvailability.dat is missing.
+3. TTSA responds with "SeatAvailability.dat is missing!".
+
+Scenario: SeatAvailability.dat is badly formatted.
+1. I select the view seating chart command.
+2. TTSA reads the seating chart but SeatAvailability.dat is badly formatted.
+3. TTSA responds with "SeatAvailability.dat is badly formatted!".
