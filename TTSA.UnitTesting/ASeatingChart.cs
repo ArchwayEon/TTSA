@@ -3,6 +3,7 @@ using TTSA.Lib;
 
 namespace TTSA.UnitTesting;
 
+[Category("Unit Tests")]
 public class ASeatingChart
 {
     [SetUp]
