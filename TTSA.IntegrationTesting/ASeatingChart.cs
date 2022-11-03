@@ -1,3 +1,4 @@
+using System.Text;
 using TTSA.Lib;
 
 namespace TTSA.IntegrationTesting;
@@ -94,5 +95,29 @@ public class ASeatingChart
         });
         Assert.That(ex!.Message, Is.EqualTo("SeatAvailability.dat is badly formatted!"));
         File.Delete(fileName);
+    }
+
+    [Category("Happy Path")]
+    [Test]
+    public void ShouldReportTheSearchingChart()
+    {
+        Assert.That(File.Exists(fileName), Is.False);
+        
+        using (StreamWriter writer = File.CreateText(fileName))
+        {
+            for (var line = 0; line < 15; line++)
+            {
+                writer.WriteLine("#####*****#####*****#####*****");
+            }
+        }
+        var reader = new AvailabilityFileReader(fileName);
+        var sut = new SeatingChart(reader);
+        sut.Read();
+        var stringBuilder = new StringBuilder();
+        for (var line = 0; line < 15; line++)
+        {
+            stringBuilder.AppendLine("#####*****#####*****#####*****");
+        }
+        Assert.That(sut.ToString(), Is.EqualTo(stringBuilder.ToString()));
     }
 }

@@ -25,3 +25,9 @@ Scenario: SeatAvailability.dat is badly formatted.
 1. I select the view seating chart command.
 2. TTSA reads the seating chart but SeatAvailability.dat is badly formatted.
 3. TTSA responds with "SeatAvailability.dat is badly formatted!".
+
+Scenario: I successfully view the seating chart.
+Pre: SeatAvailability.dat exists and is correctly formatted
+1. I select the view seating chart command.
+2. TTSA reads the seating chart.
+3. TTSA responds with the seating chart.

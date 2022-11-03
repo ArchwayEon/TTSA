@@ -11,6 +11,15 @@ public class AvailabilityFileReader : IReader
 
     public string Name { get; set; }
 
+    public object Data
+    {
+        get
+        {
+            string[] lines = File.ReadAllLines(Name, Encoding.UTF8);
+            return string.Join("\r\n", lines) + "\r\n";
+        }
+    }
+
     public bool Exists()
     {
         return File.Exists(Name);

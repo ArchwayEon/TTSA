@@ -1,4 +1,5 @@
 using Moq;
+using System.Text;
 using TTSA.Lib;
 
 namespace TTSA.UnitTesting;
@@ -38,5 +39,24 @@ public class ASeatingChart
                 sut.Read();
             });
         Assert.That(ex!.Message, Is.EqualTo("SeatAvailability.dat is badly formatted!"));
+    }
+
+    [Category("Happy Path")]
+    [Test]
+    public void ShouldReportTheSeatingChart()
+    {
+        var mockReader = new Mock<IReader>();
+        mockReader.Setup(x => x.Name).Returns("SeatAvailability.dat");
+        mockReader.Setup(x => x.Exists()).Returns(true);
+        mockReader.Setup(x => x.IsBadlyFormatted()).Returns(false);
+        var stringBuilder = new StringBuilder();
+        for(var i = 0; i < 15; i++)
+        {
+            stringBuilder.AppendLine("#####*****#####*****#####*****");
+        }
+        mockReader.Setup(x => x.Data).Returns(stringBuilder.ToString());
+        var sut = new SeatingChart(mockReader.Object);
+        sut.Read();
+        Assert.That(sut.ToString(), Is.EqualTo(stringBuilder.ToString()));
     }
 }
